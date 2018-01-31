@@ -47,41 +47,23 @@ export default class Form extends Component{
     let errors = {}
     if (name === 'firstName' && (!value || value.length === 0)) {
       errors['nameError'] = 'This field should not be blank.'
-      this.setState({
-        isValid: false
-      })
     }
     if (name === 'lastName' && (!value || value.length === 0)) {
       errors['nameError'] = 'This field should not be blank.'
-      this.setState({
-        isValid: false
-      })
     }
     if (name === 'email' && (!value || value.length === 0)) {
       errors['emailError'] = 'This field should not be blank.'
-      this.setState({
-        isValid: false
-      })
     } else if (name === 'email' && !this.validateEmail(value)) {
       errors['emailError'] = 'Please choose a valid email.'
-      this.setState({
-        isValid: false
-      })
     }
     if (name === 'phone' && value) {
       if (value.length < 8 || !DIGIT_REGEX.test(value)) {
         errors['phoneError'] = 'Please provide a valid phone number.'
-        this.setState({
-          isValid: false
-        })
       }
     }
     if (name === "address") {
       if (value.length < 10 || !value.length > 100) {
         errors['addressError'] = 'Min 10 characters, max 100'
-        this.setState({
-          isValid: false
-        })
       }
     }
 
