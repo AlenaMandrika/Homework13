@@ -7,7 +7,6 @@ let attendeeList = [{
   email: '',
   phone: '',
   address: '',
-  postcode: '',
   id: (Math.random() * 100),
 }]
 
