@@ -1,21 +1,24 @@
-import Form from './FormComponent'
 import { connect } from 'react-redux'
-import {actions} from '../../actions'
-import { bindActionCreators } from 'redux'
+import { changeStateProps } from '../../actions'
+import Form from './FormComponent'
 
 
 const mapStateToProps = (state, ownProps) => {
   console.log('state', state)
   return {
-    attendees: state.main.attendees             //масив обєктів
-
+    attendeeList: state.main.attendeeList ,
+    ...ownProps
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(actions, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    changeStateProps: (prop, value) => {
+      dispatch(changeStateProps(prop, value))
+    }
+  }
 }
 
-
 export default connect(
-  mapStateToProps, mapDispatchToProps)(Form)
+  mapStateToProps,
+  mapDispatchToProps)(Form)

@@ -1,44 +1,22 @@
-// export const addAttendee = (firstName, lastName, date, email, phone, address) => {
-//   return {
-//     type: 'ADD_ATTENDEE',
-//     id: (Math.random() * 100),
-//     firstName,
-//     lastName,
-//     date,
-//     email,
-//     phone,
-//     address
-//   }
-// }
-//
-// export const removeAttendee = (index) => {
-//   return {
-//     type: 'REMOVE_ATTENDEE',
-//     index
-//   }
-// }
-
-export const actions = {
-  addAttendee: (firstName, lastName, date, email, phone, address) => {
-    return {
-      type: 'ADD_ATTENDEE',
-      id: (Math.random() * 100),
-      firstName,
-      lastName,
-      date,
-      email,
-      phone,
-      address
+export const changeStateProps = (prop, value) => {
+  console.log('action triggered', value)
+  return {
+    type: 'CHANGE_STATE_PROPS',
+    state: {
+      prop,
+      value
     }
-  },
-  removeAttendee: (index) => {
-    return {
-      type: 'REMOVE_ATTENDEE',
+  }
+}
+
+export const removeAttendee = (index) => {
+  console.log('action triggered', index)
+  return {
+    type: 'REMOVE_ATTENDEE',
+    state: {
       index
     }
   }
-};
-
-
+}
 
 
