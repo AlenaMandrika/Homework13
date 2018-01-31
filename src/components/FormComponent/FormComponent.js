@@ -10,22 +10,20 @@ import {EMAIL_REGEX, DIGIT_REGEX} from '../../emailValidationConstans'
 import './Form.css'
 
 export default class Form extends Component{
-  componentDidMount () {
-    console.log('props in component', this.props)
-  }
-
   constructor (props) {
     super(props)
     this.state = {
       attendeeList : this.props.attendeeList,
       startDate: moment(),
       errors: {},
-
     }
     this.changeInput = this.changeInput.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.submitAttendeeList = this.submitAttendeeList.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
+  }
+  componentDidMount () {
+    console.log('props in component', this.props)
   }
 
   changeInput ({target: {value, name}}) {
@@ -34,8 +32,8 @@ export default class Form extends Component{
         [name]: {$set: value}
       })
     })
-
   }
+
   handleChange (target) {
     this.setState({
       startDate: target,
@@ -43,14 +41,15 @@ export default class Form extends Component{
         'date': {$set: target.toString()}
       })
     })
-
   }
 
   submitAttendeeList ({target: {value, name}}) {
     let errors = {}
-
-    if (this.state.attendeeList.firstName === '' || this.state.attendeeList.firstName.length === 1) {
-      errors.firstName_error = 'The field is required'
+    if (name === 'firstName' && (!value || value.length === 0)) {
+      errors['nameError'] = 'This field should not be blank.'
+      this.setState({
+        isValid: false
+      })
     }
     if (name === 'lastName' && (!value || value.length === 0)) {
       errors['nameError'] = 'This field should not be blank.'
@@ -85,6 +84,13 @@ export default class Form extends Component{
         })
       }
     }
+
+    // this.setState({
+    //   attendeeList: update(this.state.attendeeList, {
+    //     [name]: {$set: value}
+    //   })
+    // })
+
     this.setState({errors})
 
     this.props.changeStateProps('errors', this.state.errors)
@@ -124,13 +130,14 @@ export default class Form extends Component{
                      placeholder="firstName"
                      onChange={this.changeInput}/>
               <div className='invalid'>
-                {this.state.errors.firstName_error}
+                {this.state.errors.nameError}
               </div>
             </div>
 
             <div className='block'>
               <label htmlFor="lastName">lastName:</label>
               <input id="lastName"
+                     className="form-control"
                      name='lastName'
                      type="text"
                      placeholder="lastName"
@@ -145,7 +152,7 @@ export default class Form extends Component{
               <DatePicker
                 selected={this.state.startDate}
                 onChange={this.handleChange}
-                name="dateJfBirth"
+                name="date"
                 dateFormat="YYYY/MM/DD"
               />
               <div>
@@ -156,36 +163,39 @@ export default class Form extends Component{
             <div className='block'>
               <label htmlFor="email">email:</label>
               <input id="email"
+                     className="form-control"
                      name='email'
                      type="email"
                      placeholder="email@gmail.com"
                      onChange={this.changeInput}/>
               <div className='invalid'>
-                {this.state.errors.nameError}
+                {this.state.errors.emailError}
               </div>
             </div>
 
             <div className='block'>
               <label htmlFor="phone">phone:</label>
               <input id="phone"
+                     className="form-control"
                      name='phone'
                      type="number"
                      placeholder="(***)**-**-***"
                      onChange={this.changeInput}/>
               <div className='invalid'>
-                {this.state.errors.nameError}
+                {this.state.errors.phoneError}
               </div>
             </div>
 
             <div className='block'>
               <label htmlFor="address">address:</label>
               <textarea id="address"
+                        className="form-control"
                         name='address'
                         type="text"
                         placeholder="address"
                         onChange={this.changeInput}/>
               <div className='invalid'>
-                {this.state.errors.nameError}
+                {this.state.errors.addressError}
               </div>
             </div>
             <button type="submit" value="Submit" onClick={this.submitAttendeeList} className="button">Add attendee</button>

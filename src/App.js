@@ -13,7 +13,7 @@ class App extends Component {
           <img src={logo} className='App-logo' alt='logo' />
           <h1 className='App-title'>User information</h1>
         </header>
-        <Form/>
+        <Form />
         {/*<Badge/>*/}
       </div>
     )

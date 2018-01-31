@@ -4,7 +4,6 @@ import Form from './FormComponent'
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('state', state)
   return {
     attendeeList: state.main.attendeeList ,
     ...ownProps
