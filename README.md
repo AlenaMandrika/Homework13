@@ -6,8 +6,8 @@ React application using redux with persistent storage and validations. It is a f
 name (required),
 email (required),
 phone (required),
-address (required),
-date of birth (required, datepicker). Demo version is here
+address,
+date of birth (datepicker).
 
 
 Prerequisites

@@ -1,27 +1,29 @@
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
 import update from 'immutability-helper'
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+import 'react-datepicker/dist/react-datepicker.css'
 
-import {EMAIL_REGEX, DIGIT_REGEX} from '../../emailValidationConstans'
-
+import { EMAIL_REGEX, DIGIT_REGEX } from '../../emailValidationConstans'
 import './Form.css'
 
-export default class Form extends Component{
+export default class Form extends Component {
   constructor (props) {
     super(props)
+    console.log('props', props)
+
     this.state = {
-      attendeeList : this.props.attendeeList,
+      attendeeList: this.props.attendeeList,
       startDate: moment(),
       errors: {},
     }
+
     this.changeInput = this.changeInput.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.submitAttendeeList = this.submitAttendeeList.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
   }
+
   componentDidMount () {
     console.log('props in component', this.props)
   }
@@ -43,39 +45,41 @@ export default class Form extends Component{
     })
   }
 
-  submitAttendeeList ({target: {value, name}}) {
+  submitAttendeeList () {
     let errors = {}
-    if (name === 'firstName' && (!value || value.length === 0)) {
-      errors['nameError'] = 'This field should not be blank.'
+    if (this.state.attendeeList.firstName.length === 0) {
+      this.setState({errors: {nameError: 'This field should not be blank'}})
+      return
     }
-    if (name === 'lastName' && (!value || value.length === 0)) {
-      errors['nameError'] = 'This field should not be blank.'
+    if (this.state.attendeeList.lastName.length === 0) {
+      this.setState({errors: {nameError: 'This field should not be blank'}})
+      return
     }
-    if (name === 'email' && (!value || value.length === 0)) {
-      errors['emailError'] = 'This field should not be blank.'
-    } else if (name === 'email' && !this.validateEmail(value)) {
-      errors['emailError'] = 'Please choose a valid email.'
+    if (this.state.attendeeList.email.length === 0) {
+      this.setState({errors: {nameError: 'This field should not be blank'}})
+      return
+    } else if (this.state.attendeeList.email && !this.validateEmail(this.state.attendeeList.email)) {
+      this.setState({errors: {emailError: 'Please choose a valid email'}})
+      return
     }
-    if (name === 'phone' && value) {
-      if (value.length < 8 || !DIGIT_REGEX.test(value)) {
-        errors['phoneError'] = 'Please provide a valid phone number.'
-      }
-    }
-    if (name === "address") {
-      if (value.length < 10 || !value.length > 100) {
-        errors['addressError'] = 'Min 10 characters, max 100'
+    if (this.state.attendeeList.phone.length === 0) {
+      this.setState({errors: {nameError: 'This field should not be blank'}})
+      return
+    }else if (this.state.attendeeList.phone) {
+      if (this.state.attendeeList.phone.length < 8 || !DIGIT_REGEX.test(this.state.attendeeList.phone)) {
+        this.setState({errors: {phoneError: 'Please provide a valid phone number'}})
+        return
       }
     }
 
-    // this.setState({
-    //   attendeeList: update(this.state.attendeeList, {
-    //     [name]: {$set: value}
-    //   })
-    // })
+    if (this.state.attendeeList.address) {
+      if (this.state.attendeeList.address.length < 10 || !this.state.attendeeList.address.length > 100) {
+        this.setState({errors: {addressError: 'Min 10 characters, max 100'}})
+        return
+      }
+    }
 
     this.setState({errors})
-
-    this.props.changeStateProps('errors', this.state.errors)
 
     if (Object.keys(errors).length === 0) {
       this.props.changeStateProps('attendeeList', this.state.attendeeList)
@@ -90,19 +94,26 @@ export default class Form extends Component{
           address: ''
         }
       })
+
+      let arrayOfLists = this.props.arrayOfLists
+      arrayOfLists.push(this.state.attendeeList)
       this.props.changeStateProps('attendeeList', this.state.attendeeList)
+      this.props.changeStateProps('arrayOfLists', arrayOfLists)
     }
   }
 
-  validateEmail(email) {
-    return EMAIL_REGEX.test(email);
+  validateEmail (email) {
+    return EMAIL_REGEX.test(email)
   }
 
-  render() {
+  render () {
     return (
       <div className="row">
         <div className="medium-6 medium-offset-3 columns">
-          <form>
+          <form onSubmit={(e) => {
+            e.preventDefault()
+            this.submitAttendeeList()
+          }}>
             <div className='block'>
               <label htmlFor="firstName">firstName:</label>
               <input id="firstName"
@@ -110,7 +121,9 @@ export default class Form extends Component{
                      type="text"
                      name='firstName'
                      placeholder="firstName"
+                     value={this.state.firstName}
                      onChange={this.changeInput}/>
+
               <div className='invalid'>
                 {this.state.errors.nameError}
               </div>
@@ -137,9 +150,6 @@ export default class Form extends Component{
                 name="date"
                 dateFormat="YYYY/MM/DD"
               />
-              <div>
-
-              </div>
             </div>
 
             <div className='block'>
@@ -151,7 +161,7 @@ export default class Form extends Component{
                      placeholder="email@gmail.com"
                      onChange={this.changeInput}/>
               <div className='invalid'>
-                {this.state.errors.emailError}
+                {!this.state.attendeeList.email.length ? this.state.errors.nameError : this.state.errors.emailError}
               </div>
             </div>
 
@@ -164,7 +174,7 @@ export default class Form extends Component{
                      placeholder="(***)**-**-***"
                      onChange={this.changeInput}/>
               <div className='invalid'>
-                {this.state.errors.phoneError}
+                {!this.state.attendeeList.phone.length ? this.state.errors.nameError : this.state.errors.phoneError}
               </div>
             </div>
 
@@ -180,7 +190,7 @@ export default class Form extends Component{
                 {this.state.errors.addressError}
               </div>
             </div>
-            <button type="submit" value="Submit" onClick={this.submitAttendeeList} className="button">Add attendee</button>
+            <button type="submit" value="Submit" className="button">Add attendee</button>
           </form>
         </div>
       </div>
@@ -188,18 +198,6 @@ export default class Form extends Component{
   }
 }
 
-// class RemoveAttendee extends Component {
-//   handleOnClick() {
-//     let index = this.props.index;
-//
-//     this.props.removeAttendee(index);
-//   }
-//   render() {
-//     return (
-//       <button className="alert button tiny" onClick={this.handleOnClick.bind(this)}> &times; Remove attendee</button>
-//     )
-//   }
-// }
 
 
 

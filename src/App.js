@@ -3,7 +3,7 @@ import logo from './logo.svg'
 import './App.css'
 
 import Form from './components/FormComponent/FormComponentContainer'
-// import Badge from './components/BadgeComponent/BadgeComponentContainer'
+import Badge from './components/BadgeComponent/BadgeComponentContainer'
 
 class App extends Component {
   render () {
@@ -14,7 +14,7 @@ class App extends Component {
           <h1 className='App-title'>User information</h1>
         </header>
         <Form />
-        {/*<Badge/>*/}
+        <Badge/>
       </div>
     )
   }

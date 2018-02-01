@@ -1,6 +1,7 @@
 import update from 'immutability-helper'
 
 let defaultState = {
+  arrayOfLists: [],
   attendeeList: {
     'firstName': '',
     'lastName': '',
@@ -12,26 +13,15 @@ let defaultState = {
   }
 }
 
-const main = (state = defaultState, action) => {
+export default (state = defaultState, action) => {
+  console.log('state', state)
   switch (action.type) {
     case 'CHANGE_STATE_PROPS':
-      console.log('data in reducer', action.state)
       return update(state, {
         [action.state.prop]: {$set: action.state.value}
-      })
-
-    case 'REMOVE_ATTENDEE':
-      return update(state, {
-        [action.state.index]: {$set: action.state.index}
       })
 
     default:
       return state
   }
 }
-
-export default main
-
-
-
-
