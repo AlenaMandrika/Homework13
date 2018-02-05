@@ -65,13 +65,12 @@ export default class Form extends Component {
     if (this.state.attendeeList.phone.length === 0) {
       this.setState({errors: {nameError: 'This field should not be blank'}})
       return
-    }else if (this.state.attendeeList.phone) {
+    } else if (this.state.attendeeList.phone) {
       if (this.state.attendeeList.phone.length < 8 || !DIGIT_REGEX.test(this.state.attendeeList.phone)) {
         this.setState({errors: {phoneError: 'Please provide a valid phone number'}})
         return
       }
     }
-
     if (this.state.attendeeList.address) {
       if (this.state.attendeeList.address.length < 10 || !this.state.attendeeList.address.length > 100) {
         this.setState({errors: {addressError: 'Min 10 characters, max 100'}})
@@ -82,6 +81,7 @@ export default class Form extends Component {
     this.setState({errors})
 
     if (Object.keys(errors).length === 0) {
+
       this.props.changeStateProps('attendeeList', this.state.attendeeList)
       this.setState({
         errors: {},
@@ -93,11 +93,10 @@ export default class Form extends Component {
           phone: '',
           address: ''
         }
-      })
+      }, () => {this.props.changeStateProps('attendeeList', this.state.attendeeList)})
 
-      let arrayOfLists = this.props.arrayOfLists
+      let arrayOfLists = this.props.arrayOfLists.slice()
       arrayOfLists.push(this.state.attendeeList)
-      this.props.changeStateProps('attendeeList', this.state.attendeeList)
       this.props.changeStateProps('arrayOfLists', arrayOfLists)
     }
   }
@@ -105,6 +104,7 @@ export default class Form extends Component {
   validateEmail (email) {
     return EMAIL_REGEX.test(email)
   }
+
 
   render () {
     return (
@@ -121,11 +121,11 @@ export default class Form extends Component {
                      type="text"
                      name='firstName'
                      placeholder="firstName"
-                     value={this.state.firstName}
-                     onChange={this.changeInput}/>
+                     onChange={this.changeInput}
+                     value={this.state.attendeeList.firstName}/>
 
               <div className='invalid'>
-                {this.state.errors.nameError}
+                {!this.state.attendeeList.firstName.length ? this.state.errors.nameError : null}
               </div>
             </div>
 
@@ -136,9 +136,10 @@ export default class Form extends Component {
                      name='lastName'
                      type="text"
                      placeholder="lastName"
-                     onChange={this.changeInput}/>
+                     onChange={this.changeInput}
+                     value={this.state.attendeeList.lastName}/>
               <div className='invalid'>
-                {this.state.errors.nameError}
+                {!this.state.attendeeList.lastName.length ? this.state.errors.nameError : null}
               </div>
             </div>
 
@@ -148,7 +149,7 @@ export default class Form extends Component {
                 selected={this.state.startDate}
                 onChange={this.handleChange}
                 name="date"
-                dateFormat="YYYY/MM/DD"
+                dateFormat="DD/MM/YYYY"
               />
             </div>
 
@@ -159,7 +160,8 @@ export default class Form extends Component {
                      name='email'
                      type="email"
                      placeholder="email@gmail.com"
-                     onChange={this.changeInput}/>
+                     onChange={this.changeInput}
+                     value={this.state.attendeeList.email}/>
               <div className='invalid'>
                 {!this.state.attendeeList.email.length ? this.state.errors.nameError : this.state.errors.emailError}
               </div>
@@ -172,7 +174,8 @@ export default class Form extends Component {
                      name='phone'
                      type="number"
                      placeholder="(***)**-**-***"
-                     onChange={this.changeInput}/>
+                     onChange={this.changeInput}
+                     value={this.state.attendeeList.phone}/>
               <div className='invalid'>
                 {!this.state.attendeeList.phone.length ? this.state.errors.nameError : this.state.errors.phoneError}
               </div>
@@ -185,7 +188,8 @@ export default class Form extends Component {
                         name='address'
                         type="text"
                         placeholder="address"
-                        onChange={this.changeInput}/>
+                        onChange={this.changeInput}
+                        value={this.state.attendeeList.address}/>
               <div className='invalid'>
                 {this.state.errors.addressError}
               </div>

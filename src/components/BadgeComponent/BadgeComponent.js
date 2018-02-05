@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './badge.css'
 
 export default class Badge extends Component {
   constructor (props) {
@@ -10,7 +9,7 @@ export default class Badge extends Component {
   }
 
   handleOnClick(index) {
-    let arrayOfLists = this.props.arrayOfLists
+    let arrayOfLists = this.props.arrayOfLists.slice()
     arrayOfLists.splice(index, 1)
     this.props.changeStateProps('arrayOfLists', arrayOfLists)
   }
@@ -18,8 +17,12 @@ export default class Badge extends Component {
   componentDidMount () {
     console.log('props in component Badge', this.props)
   }
+  componentWillReceiveProps (nextProps) {
+    console.log('nextProps', nextProps)
+  }
 
   render () {
+    console.log(22222, this.props.arrayOfLists)
     let style = {backgroundColor: 'red'}
     return (
       <div>
