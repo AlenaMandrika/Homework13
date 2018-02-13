@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { changeStateProps } from '../../actions'
 import Form from './FormComponent'
 
-
 const mapStateToProps = (state, ownProps) => {
   return {
     attendeeList: state.main.attendeeList ,

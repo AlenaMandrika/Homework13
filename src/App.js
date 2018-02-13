@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
+import logo from './assets/logo.svg'
 import './App.css'
 
 import Form from './components/FormComponent/FormComponentContainer'
@@ -14,7 +14,7 @@ class App extends Component {
           <h1 className='App-title'>User information</h1>
         </header>
         <Form />
-        <Badge/>
+        <Badge />
       </div>
     )
   }

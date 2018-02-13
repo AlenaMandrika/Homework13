@@ -5,7 +5,6 @@ import Badge from './BadgeComponent'
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(11111, state.main)
   return {
     attendeeList: state.main.attendeeList ,
     arrayOfLists: state.main.arrayOfLists,

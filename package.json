@@ -19,7 +19,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "standard && node my-tests.js",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "standard": "*"
   }
 }

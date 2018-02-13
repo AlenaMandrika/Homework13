@@ -1,3 +1,4 @@
+// actions
 export const changeStateProps = (prop, value) => {
   console.log('action triggered', value)
   return {
@@ -9,14 +10,5 @@ export const changeStateProps = (prop, value) => {
   }
 }
 
-// export const removeAttendee = (index) => {
-//   console.log('action triggered', index)
-//   return {
-//     type: 'REMOVE_ATTENDEE',
-//     state: {
-//       index
-//     }
-//   }
-// }
 
 
