@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import logo from './assets/logo.svg'
 import './App.css'
-
 import Form from './components/FormComponent/FormComponentContainer'
 import Badge from './components/BadgeComponent/BadgeComponentContainer'
 

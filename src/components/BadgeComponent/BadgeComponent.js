@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
-
 export default class Badge extends Component {
   constructor (props) {
     super(props)
     this.handleOnClick = this.handleOnClick.bind(this)
   }
 
-  //function that deletes a user from the lis
+  // function that deletes a user from the lis
   handleOnClick(index) {
     let arrayOfLists = this.props.arrayOfLists.slice()
     arrayOfLists.splice(index, 1)
     this.props.changeStateProps('arrayOfLists', arrayOfLists)
   }
 
-  //display information about the user
+  // display information about the user
   render () {
     let style = {backgroundColor: 'red'}
     return (

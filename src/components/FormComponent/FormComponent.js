@@ -7,7 +7,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { DIGIT_REGEX } from '../../emailValidationConstans'
 import './Form.css'
 
-
 export default class Form extends Component {
   constructor (props) {
     super(props)
@@ -22,7 +21,7 @@ export default class Form extends Component {
     this.submitAttendeeList = this.submitAttendeeList.bind(this)
   }
 
-  //state update attendeeList
+  // state update attendeeList
   changeInput ({target: {value, name}}) {
     this.setState({
       attendeeList: update(this.state.attendeeList, {
@@ -31,7 +30,7 @@ export default class Form extends Component {
     })
   }
 
-  //update the status of the participant (date field)
+  // update the status of the participant (date field)
   handleChange (target) {
     this.setState({
       startDate: target,
@@ -41,7 +40,7 @@ export default class Form extends Component {
     })
   }
 
-  //validation function
+  // validation function
   submitAttendeeList () {
     let re = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
     let errors = {}
@@ -73,11 +72,9 @@ export default class Form extends Component {
       this.setState({errors: {nameError: 'This field should not be blank'}})
       return
     }
-
     this.setState({errors})
 
     if (Object.keys(errors).length === 0) {
-
       this.props.changeStateProps('attendeeList', this.state.attendeeList)
       this.setState({
         errors: {},
@@ -114,12 +111,10 @@ export default class Form extends Component {
                      placeholder="firstName"
                      onChange={this.changeInput}
                      value={this.state.attendeeList.firstName}/>
-
               <div className='invalid'>
                 {!this.state.attendeeList.firstName.length ? this.state.errors.nameError : null}
               </div>
             </div>
-
             <div className='block'>
               <label htmlFor="lastName">lastName:</label>
               <input id="lastName"
@@ -133,7 +128,6 @@ export default class Form extends Component {
                 {!this.state.attendeeList.lastName.length ? this.state.errors.nameError : null}
               </div>
             </div>
-
             <div className='block'>
               <label htmlFor="date">date:</label>
               <DatePicker
@@ -143,7 +137,6 @@ export default class Form extends Component {
                 dateFormat="DD/MM/YYYY"
               />
             </div>
-
             <div className='block'>
               <label htmlFor="email">email:</label>
               <input id="email"
@@ -157,7 +150,6 @@ export default class Form extends Component {
                 {!this.state.attendeeList.email.length ? this.state.errors.nameError : this.state.errors.emailError}
               </div>
             </div>
-
             <div className='block'>
               <label htmlFor="phone">phone:</label>
               <input id="phone"
@@ -171,7 +163,6 @@ export default class Form extends Component {
                 {!this.state.attendeeList.phone.length ? this.state.errors.nameError : this.state.errors.phoneError}
               </div>
             </div>
-
             <div className='block'>
               <label htmlFor="address">address:</label>
               <textarea id="address"
@@ -192,8 +183,3 @@ export default class Form extends Component {
     )
   }
 }
-
-
-
-
-
