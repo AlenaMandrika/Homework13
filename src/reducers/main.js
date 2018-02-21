@@ -14,7 +14,6 @@ let defaultState = {
 }
 
 export default (state = defaultState, action) => {
-  console.log('state', state)
   switch (action.type) {
     case 'CHANGE_STATE_PROPS':
       return update(state, {

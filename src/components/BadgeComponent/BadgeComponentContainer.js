@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import { changeStateProps} from '../../actions'
+import {changeStateProps} from '../../actions'
 import Badge from './BadgeComponent'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    attendeeList: state.main.attendeeList ,
+    attendeeList: state.main.attendeeList,
     arrayOfLists: state.main.arrayOfLists,
     ...ownProps
   }

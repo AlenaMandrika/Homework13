@@ -4,7 +4,7 @@ import Form from './FormComponent'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    attendeeList: state.main.attendeeList ,
+    attendeeList: state.main.attendeeList,
     arrayOfLists: state.main.arrayOfLists,
     ...ownProps
   }

@@ -19,10 +19,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "standard && node my-tests.js",
+    "test": "standard",
+    "test:fix": "standard --fix",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "standard": "*"
+    "standard": "^10.0.2"
   }
 }
